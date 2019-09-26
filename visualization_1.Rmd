@@ -64,3 +64,148 @@ weather_df %>%
   geom_point()
 
 ```
+
+
+### lets add color!
+
+```{r}
+
+weather_df %>% 
+  ggplot(aes (x=tmin, y=tmax)) +
+  geom_point(aes(color = name))
+
+# make the points more transparent
+weather_df %>% 
+  ggplot(aes (x=tmin, y=tmax)) +
+  geom_point(aes(color = name), alpha=0.4)
+
+# let's say we want to add a trend line
+
+weather_df %>% 
+  ggplot(aes (x=tmin, y=tmax)) +
+  geom_point(aes(color = name), alpha=0.4) +
+  geom_smooth(se=FALSE)
+
+
+```
+
+## what if we actually want a three panel plot now?
+### create facets!
+
+```{r}
+
+weather_df %>% 
+  ggplot(aes (x=tmin, y=tmax)) +
+  geom_point(aes(color = name), alpha=0.4) +
+  geom_smooth(se=FALSE) +
+  facet_grid(~name)
+```
+
+
+# another plot
+```{r}
+
+weather_df %>% 
+  ggplot(aes (x=date, y=tmax)) +
+  geom_point(aes(color = name), alpha=0.4) +
+  geom_smooth(se=FALSE)
+
+# if you want there to be 3 different curves 
+# change location of color = name within syntax
+
+weather_df %>% 
+  ggplot(aes (x=date, y=tmax, color=name)) +
+  geom_point(alpha=0.4) +
+  geom_smooth(se=FALSE)
+
+## changing size of line 
+
+weather_df %>% 
+  ggplot(aes (x=date, y=tmax, color=name)) +
+  geom_point(alpha=0.4) +
+  geom_smooth(size=2, se=FALSE)
+
+```
+
+
+### extra stuff
+```{r}
+
+# without geom_point, you can still get those curve
+# you can pick and choose which things you want to show
+# the geometries are independent of each other
+
+weather_df %>% 
+  ggplot(aes (x=date, y=tmax, color=name)) +
+  geom_smooth(size=2, se=FALSE)
+
+```
+
+### more kinds of plots
+
+
+```{r}
+weather_df %>% 
+  ggplot(aes(x=tmax, color=name)) +
+  geom_histogram()
+
+# if we want to actually fill the bars 
+
+weather_df %>% 
+  ggplot(aes(x=tmax, fill=name)) +
+  geom_histogram()
+
+
+# if we don't want it stacked
+weather_df %>% 
+  ggplot(aes(x=tmax, fill=name)) +
+  geom_histogram(position="dodge") 
+
+# 3 separate histograms
+weather_df %>% 
+  ggplot(aes(x=tmax, fill=name)) +
+  geom_histogram(position="dodge") +
+  facet_grid(~name)
+
+
+```
+
+
+###  density plots
+
+
+```{r}
+
+weather_df %>% 
+  ggplot(aes(x=tmax, fill=name)) +
+  geom_density(alpha=0.3) 
+```
+
+
+### box plot
+```{r}
+weather_df %>% 
+  ggplot(aes(x=name, y=tmax, color=name, fill=name)) +
+  geom_boxplot()
+```
+
+### violin plot
+
+```{r}
+
+weather_df %>% 
+  ggplot(aes(x=name, y=tmax)) +
+  geom_violin()
+```
+
+### ridge plot
+
+```{r}
+
+```
+
+
+
+
+
+
