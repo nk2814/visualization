@@ -1,0 +1,19 @@
+---
+title: "visualization_1"
+author: "Naama Kipperman"
+date: "9/26/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### load packages
+
+```{r}
+
+library(tidyverse)
+library(ggridges)
+
+```
