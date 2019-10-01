@@ -1,0 +1,87 @@
+---
+title: "visualization_2"
+author: "Naama Kipperman"
+date: "10/1/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### load packages
+
+```{r}
+
+library(tidyverse)
+library(ggridges)
+
+```
+
+### create weather data
+
+```{r}
+#rnoaa is the R package that interacts with weather stuff
+
+weather_df = 
+  rnoaa::meteo_pull_monitors(c("USW00094728", "USC00519397", "USS0023B17S"),
+                      var = c("PRCP", "TMIN", "TMAX"), 
+                      date_min = "2017-01-01",
+                      date_max = "2017-12-31") %>%
+  mutate(
+    name = recode(id, USW00094728 = "CentralPark_NY", 
+                      USC00519397 = "Waikiki_HA",
+                      USS0023B17S = "Waterhole_WA"),
+    tmin = tmin / 10,
+    tmax = tmax / 10) %>%
+  select(name, id, everything())
+```
+
+
+## start with an old plot 
+
+```{r}
+weather_df %>% 
+  ggplot(aes (x=tmin, y=tmax)) +
+  geom_point(aes(color = name), alpha=0.4)
+```
+
+## add some captions (labs)
+
+```{r}
+
+weather_df %>% 
+  ggplot(aes (x=tmin, y=tmax)) +
+  geom_point(aes(color = name), alpha=0.4)+
+  labs(
+    title = "Temperature Plot",
+    x = "Minimum Temp(C)",
+    y = "Maximum Temp(C)",
+    caption = "Dasta from NOAA via rnoaa package"
+  )
+
+```
+
+So, in ggplot, there's a collection of functions that start with 'scale this' and 'scale that' - allows you to control with some granularity the scale.
+
+```{r}
+
+# scaling 
+
+weather_df %>% 
+  ggplot(aes (x=tmin, y=tmax)) +
+  geom_point(aes(color = name), alpha=0.4)+
+  labs(
+    title = "Temperature Plot",
+    x = "Minimum Temp(C)",
+    y = "Maximum Temp(C)",
+    caption = "Dasta from NOAA via rnoaa package"
+  ) +
+  scale_x_continuous(
+    breaks = c(-15, -5, 20),
+    labels = c("-15c", "-5c", "20c")
+  )
+```
+
+
+
