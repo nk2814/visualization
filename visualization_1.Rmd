@@ -84,7 +84,7 @@ weather_df %>%
 weather_df %>% 
   ggplot(aes (x=tmin, y=tmax)) +
   geom_point(aes(color = name), alpha=0.4) +
-  geom_smooth(se=FALSE)
+  geom_smooth(se=FALSE) # the FALSE tells R to not include the standard error bars around the line
 
 
 ```
@@ -204,6 +204,22 @@ weather_df %>%
 
 ```
 
+
+### SAVING A PLOT
+### the violin plot, for example
+```{r}
+gg_ridge_temp = 
+weather_df %>% 
+  ggplot(aes(x=name, y=tmax)) +
+  geom_violin()
+
+ggsave("ggplot_temp_rdige.pdf", gg_ridge_temp)
+
+```
+
+```{r}
+
+```
 
 
 
