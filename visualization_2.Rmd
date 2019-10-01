@@ -67,6 +67,7 @@ So, in ggplot, there's a collection of functions that start with 'scale this' an
 ```{r}
 
 # scaling 
+# transforming y 
 
 weather_df %>% 
   ggplot(aes (x=tmin, y=tmax)) +
@@ -80,6 +81,9 @@ weather_df %>%
   scale_x_continuous(
     breaks = c(-15, -5, 20),
     labels = c("-15c", "-5c", "20c")
+  ) +
+  scale_y_continuous(
+    trans = "sqrt"
   )
 ```
 
